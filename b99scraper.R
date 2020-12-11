@@ -17,7 +17,7 @@ imdbdata <- do.call(rbind, lapply(unique(allseasons), function(f){
     ep <- 1:length(rating)
     season <- f
     season <- paste0("S", season, ", Ep", ep)
-    rating <- data.frame(season, rating)
+    rating <- data.frame(season, rating, ep)
 
 # Episode names    
     ep_html <- html_nodes(webpage, 'a')
@@ -30,7 +30,7 @@ imdbdata <- do.call(rbind, lapply(unique(allseasons), function(f){
     epname <- epname[seq(1, nrow(rating)+1,1)]
     epname <- epname[-1]
     fdata <- data.frame(epname, f, rating)
-    colnames(fdata) <- c("epname", "season", "episode", "rating")
+    colnames(fdata) <- c("epname", "season", "id", "rating", "epnumber")
     fdata
 }))
 
