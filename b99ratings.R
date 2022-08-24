@@ -43,8 +43,8 @@ ggplot(b99data) +
                      yend=rating), 
                size = .4, color = mean_lines, linetype = 2) +
     geom_line(aes(series_ep,mean_rating), color = mean_lines, size = 1.8) +
-    scale_y_continuous(limits = c(6, 10),
-                       breaks = seq(6, 10, 0.5)) +
+    scale_y_continuous(limits = c(4.5, 10),
+                       breaks = seq(4.5, 10, 0.5)) +
     scale_x_continuous(expand = c(0.05,0)) + 
     geom_point(aes(series_ep,
                    y=rating,
