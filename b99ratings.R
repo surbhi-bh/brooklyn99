@@ -18,7 +18,8 @@ b99data <- imdbdata %>%
            season == 4 ~ 80,
            season == 5 ~ 102,
            season == 6 ~ 122,
-           season == 7 ~ 137
+           season == 7 ~ 137,
+           season == 8 ~ 150
            ))
 
 top.bottom <- do.call(rbind,lapply(unique(b99data$season), function(f){
@@ -44,15 +45,15 @@ ggplot(b99data) +
     geom_line(aes(series_ep,mean_rating), color = mean_lines, size = 1.8) +
     scale_y_continuous(limits = c(6, 10),
                        breaks = seq(6, 10, 0.5)) +
-   # scale_x_continuous(expand = c(0,0.)) + 
+    scale_x_continuous(expand = c(0.05,0)) + 
     geom_point(aes(series_ep,
                    y=rating,
                    fill = factor(season)), colour= mean_lines,
                pch=21, size = 3.5) +
     ylab("IMDb rating") +
-    geom_text(data=subset(top.bottom, rating > 8),
+    geom_text(data=subset(top.bottom, rating > 8.4),
               aes(series_ep+2,rating+0.1,label=epname)) +
-     geom_text(data=subset(top.bottom, rating < 7.6),
+     geom_text(data=subset(top.bottom, rating < 7.5),
                aes(series_ep-1,rating-0.1,label=epname)) +
     geom_curve(aes(x = 120, y = 6.1, xend = 117, yend = 6.3),
                arrow = arrow(length = unit(0.3, "cm")),
@@ -93,7 +94,7 @@ ggplot(b99data) +
        subtitle = "Brooklyn 99 has been a consistent favourite, and halloween heist episodes are recurring highlights",
        caption = "\nSleeping lines represent average rating per season.\ndataviz: @surbhaai | source: IMDb") 
 
-ggsave("brooklyn99rating.png", width = 14, height = 8, dpi = 150)
+ggsave("brooklyn99rating.png", width = 15, height = 9, dpi = 100)
 dev.off()
 
 ## Fin! ##

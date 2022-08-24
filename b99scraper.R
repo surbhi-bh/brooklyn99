@@ -2,7 +2,7 @@
 
 library(rvest)
 
-allseasons <- 1:7
+allseasons <- 1:8
 
 imdbdata <- do.call(rbind, lapply(unique(allseasons), function(f){
     url <- c(paste0("https://www.imdb.com/title/tt2467372/episodes?season=",
@@ -25,15 +25,15 @@ imdbdata <- do.call(rbind, lapply(unique(allseasons), function(f){
     epname <- trimws(epname)
     epname <- epname[- grep("Rate", epname)]
     epname <- epname[epname != ""]
-    epname <- epname[54:length(epname)]
+    epname <- epname[46:length(epname)]
     epname <- epname[seq(1, length(epname), 2)]
     epname <- epname[seq(1, nrow(rating)+1,1)]
-    epname <- epname[-1]
+    epname <- epname[- length(epname)]
     fdata <- data.frame(epname, f, rating)
     colnames(fdata) <- c("epname", "season", "id", "rating", "epnumber")
     fdata
-}))
 
+}))
 
 write.csv(imdbdata, "imdbb99.csv", row.names = FALSE)
 
